@@ -1,0 +1,16 @@
+size(720,480);
+noStroke();
+fill(30,181,58);
+triangle(0,0,0,344,455,0);
+fill(65,137,221);
+triangle(720,136,720,480,265,480);
+fill(252,209,22);
+beginShape();
+vertex(455,0);vertex(720,0);vertex(720,136);
+vertex(265,480);vertex(0,480);vertex(0,344);
+endShape(CLOSE);
+fill(0);
+beginShape();
+vertex(513,0);vertex(720,0);vertex(720,78);
+vertex(207,480);vertex(0,480);vertex(0,402);
+endShape(CLOSE);
