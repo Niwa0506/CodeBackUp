@@ -1,0 +1,42 @@
+<html>
+  <meta charset = "UTF-8">
+ <head>
+  <script type="text/javascript">
+    
+   function prdate ( ) {
+    var year = parseInt(document.getElementById("st_year").value);
+    var month = parseInt(document.getElementById("st_month").value);
+    var date = parseInt(document.getElementById("st_date").value);
+    var start = new Date(year,month,date);
+    console.log(year);
+    console.log(month);
+    console.log(date);
+    year = parseInt(document.getElementById("e_year").value);
+    month = parseInt(document.getElementById("e_month").value);
+    date = parseInt(document.getElementById("e_date").value);
+    var end = new Date(year,month,date);
+    console.log(year+month);
+    console.log(month);
+    console.log(date);
+    var result = (end-start)/86400000;
+    console.log(result);
+    var result_day=result%7,result_week=parseInt(result/7);
+    var pdate = "経過日数:"+result_day+" 経過週数:"+result_week+"です.";
+    window.alert(pdate);
+    }
+  </script>
+ </head>
+ <body>
+  
+  <p>開始日:
+    <input type="text" id="st_year">年
+    <input type="text" id="st_month">月
+    <input type="text" id="st_date">日
+  <p>終了日:
+    <input type="text" id="e_year">年
+    <input type="text" id="e_month">月
+    <input type="text" id="e_date">日
+  </p>
+    <button type="button" onclick="prdate()">計算</button>
+ </body>
+</html> 

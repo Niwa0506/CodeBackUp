@@ -1,0 +1,25 @@
+<html>
+    <meta charset = "UTF-8">
+    <body>
+        <script language = "javascript">
+            function openwindow(){
+                var selected = window.document.link.bkmks.selectedIndex;
+                if (selected > 0) {//選ばれたoptionにあるリンクを新しいwindowで開く
+                window.open(document.link.bkmks.options[selected].value);
+                }
+            }
+        </script>
+        <form name = "link">
+            <select name ="bkmks" onchange = "pmove()">
+                <option>ここから選択してください。
+                <option value = "http://www.uec.ac.jp">電気通信大学
+                <option value = "http://www.uec.ac.jp/department/ie/j/">電気通信大学情報理工学部総合情報学科
+                <option value = "http://wlgate.ice.uec.ac.jp">電気通信大学柏原研究室
+                <option value = "http://www.google.co.jp">検索エンジン:google
+                <option value = "http://www.amazon.co.jp">amazon.co.jp
+            </select><br>
+            <button type = "button" onclick = "openwindow()">開く</button>
+            <button type = "button" onclick = "window.close()">閉じる</button>
+        </form>
+    </body>
+</html>

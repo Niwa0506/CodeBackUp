@@ -1,0 +1,19 @@
+<HTML>
+<HEAD>
+    <meta charset ="UTF-8">
+<TITLE>New one</TITLE>
+<BODY>
+<form name = 'bkmkmenu'>
+<select name ='bkmks'>
+<option>ここから選択してください
+ <option value = 'http://www.uec.ac.jp'>電気通信大学
+<option value = 'http://www.uec.ac.jp/department/ie/j/'>電気通信大学情報理工学部総合情報学科
+
+<option value = 'http://wlgate.ice.uec.ac.jp'>電気通信大学柏原研究室
+<option value = 'http://www.google.co.jp'>検索エンジン:google
+  <option value = 'http://www.amazon.co.jp'>amazon.co.jp
+   </select>
+  </form>
+   <button onclick = 'window.close()'>閉じる</button>
+    <button onclick = "window.open(document.bkmkmenu.bkmks.options[document.bkmkmenu.bkmks.selectedIndex].value)">開く</button>
+   </BODY></HTML>

@@ -1,0 +1,36 @@
+<html>
+    <head>
+    <meta charset = "UTF-8">
+        <script type="text/javascript">
+            var flag1=0,flag2=0,flag_do1=0,flag_do2=0;
+            var figure = 1910506;
+            var pass = "Niwa";
+            function visPass (th) {
+                if(th.id=="figure"){flag_do1=1;//学籍番号を入力したというフラグを立てる
+                    var number = document.getElementById("figure").value;//入力した学籍番号を取得
+                    if(number==figure) flag1=1;//あってるならフラグをたてる
+                    else flag1=0;
+                }else{flag_do2=1;//パスワードを入力したというフラグを立てる
+                    var p  = document.getElementById("password").value;//入力したパスワードを取得
+                    if(p==pass) flag2=1;//あってるならフラグを立てる
+                    else flag2=0;
+                }
+            }
+
+            function nextPage(){
+                if(flag1==1&&flag2==1){//どちらもあってるならページを開く
+                    window.open("https://www.ied.inf.uec.ac.jp/text/laboratory/javascript/3_200.html","sar","width=400,height=600");
+                }else if(flag_do1==1&&flag_do2==1){//入力はしてるが、どちらかが間違ってるならアラートを出す
+                    window.alert("Password Incorrect");
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <form name ="pbt">
+            学籍番号:<input type = "text" id ="figure" size="10" onblur = "visPass(this)" >
+            password:<input type = "password" id = "password" size="10" onblur = "visPass(this)"><br>
+            <button type="button" onClick="nextPage()">認証</button>
+        </form> 
+    </body>
+</html>

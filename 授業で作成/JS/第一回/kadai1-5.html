@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <meta charset = "UTF-8">
+ <head>
+  <title>Event Handler</title>
+  <script type="text/javascript">
+    var int;
+   function decide_view(){
+       //random関数で画像をランダムに選択
+       var n = parseInt(Math.random()*10%3);
+       if(n==0)document.images["myImg1"].src = "img1.png";
+       else if(n==1)document.images["myImg1"].src = "img2.png";
+       else document.images["myImg1"].src = "img3.png";
+   }
+    function start_slide(){
+        //decide_view()が5秒ごとに起動するように設定
+        int = setInterval("decide_view()",5000);
+    }
+    function end_slide(){
+        //intervalのクリア(スライドショーの停止)
+        clearInterval(int);
+    }
+    
+ </script>
+ </head>
+ <body>
+    <p><button type="button" onclick="start_slide()">スライドショー開始</button>
+    <button type="button" onclick="end_slide()">スライドショー終了</button></p>
+    <img src="img1.png" name="myImg1" onclick="check()">
+ </body>
+</html>

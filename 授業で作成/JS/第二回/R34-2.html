@@ -1,0 +1,23 @@
+<html>
+    <meta charset = "UTF-8">
+ <body>
+    <script type="text/javascript">
+
+
+        function move(){
+            selected = window.document.bkmkmenu.bkmks.selectedIndex;
+            if (selected > 0) {
+                window.open(document.bkmkmenu.bkmks.options[selected].value,"sub");
+            }
+        }
+       </script>
+  <form name = "bkmkmenu">
+   <select name ="bkmks" onchange = "move()">
+    <option>ここから選択してください。
+    <option value = "./reader.html">ブックマーク集
+    <option value = "./lasttime.html">2021年の残り時間
+    <option value = "./autochange.html">背景自動変更
+    </select>
+  </form>
+ </body>
+</html>

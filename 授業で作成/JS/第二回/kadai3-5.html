@@ -1,0 +1,24 @@
+<html>
+    <meta charset = "UTF-8">
+    <body>
+        <form name = "menu">
+            <select name ="list">
+                <option>ここから選択してください。
+                <option value = "kadai3-5-1.html">ブックマーク集
+                <option value = "kadai3-5-2.html">2021年の残り時間
+                <option value = "kadai3-5-3.html">背景自動変更
+                <option value = "kadai3-5-4.html">1html版
+            </select>
+        </form>
+        <button onclick = "newpages()">開く</button>
+        <script LANGUAGE="JavaScript">
+            function newpages(){
+                /*選ばれたoptionの番号取得*/
+                var selected = document.menu.list.selectedIndex;
+                /*1以上なら、選ばれたoptionのhtmlをNewwindowという名前で横280px,縦480pxのwindowを開く*/
+                if(selected>0)
+                window.open(document.menu.list.options[selected].value,"Newwindow","width=280,height=480");
+            }
+    </script>
+    </body>
+</html>

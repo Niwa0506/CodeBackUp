@@ -1,0 +1,31 @@
+<html>
+  <meta charset = "UTF-8">
+ <head>
+  <script type="text/javascript">
+    
+    function prdate (s,keyword) {
+        //キーワードが出現した回数を計測
+        var number=0;
+        while(s.indexOf(keyword)!=-1){//keywordがあるなら
+            /*keywordをカウント*/
+            number++;
+            /*新しく作成された文字列の中のキーワードを削除*/
+            s = s.replace(keyword,"");
+        }
+        //結果の出力
+        window.alert("キーワードの個数="+number+","+"新たな文字列="+s);
+    }
+    //入力された情報を使って、prdateの起動
+    function do_string(){
+        var s = document.getElementById("string").value;
+        var keyword = document.getElementById("keyword").value;
+        prdate(s,keyword);
+    }
+  </script>
+ </head>
+ <body>
+        入力文字列=<input type="text" id="string">,
+        キーワード=<input type="text" id="keyword">
+        <p><button onclick="do_string()">計算</button></p>
+ </body>
+</html> 

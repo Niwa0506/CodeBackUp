@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>ランダムな色変化</title>
+        <script type="text/javascript">
+            var int;
+            function start_color(){
+                /*カラーのセット開始*/
+                int = setInterval("setcolor()",1000);
+            }
+            function setcolor () {
+                /*赤、青、黄色からランダムに色をセット*/
+                var color_set = Math.floor(Math.random()*3);
+                if(color_set == 0)
+                    document.getElementById("txt1").style.color = "red";
+                else if(color_set == 1)
+                    document.getElementById("txt1").style.color = "blue";
+                else
+                    document.getElementById("txt1").style.color = "yellow";
+            }
+            function end_color(){
+                /*色の変化終了*/
+                clearInterval(int);
+            }
+        </script>
+    </head>
+    <meta charset="UTF-8">
+    <body>
+        <div id = "txt1" style = "position:absolute;left:0px;top:0px;font-size:30px">I am a student.</div><br>
+        <p><button type="button" onclick="start_color()">スタート</button></p>
+        <p><button type="button" onclick="end_color()">終わり</button></p>
+    </body>
+</html>

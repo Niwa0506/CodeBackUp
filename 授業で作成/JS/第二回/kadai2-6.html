@@ -1,0 +1,58 @@
+<html>
+   <meta charset = "UTF-8">
+   <head>
+   <title>cookie</title>
+   <script type="text/javascript">
+      function set_data(){//最初のデータセット(名前と趣味)
+         var u_name = prompt("お名前を入力してください","");//名前入力  
+         var u_hobby = prompt("趣味を入力してください","");//趣味入力
+         if (u_name == "")set_data();//名前がからならやり直し
+         if(u_hobby == "")set_data();//趣味がからならやり直し
+         indata("name",u_name);//名前をcookieに保存
+         indata("hobby",u_hobby);//趣味をcookieに保存
+         indata("count",1);//訪問回数をcookieに保存
+      }
+
+      function indata(data,u_data){//データをcookieに保存
+         var presentDay, dd, extime;
+         presentDay = new Date();//本日の日付
+         dd = presentDay.getDate();//今日の日にちを取得
+         dd=dd+7;//一週間後
+         presentDay.setDate(dd);//今日の一週間後の日付に設定
+         extime = presentDay.toGMTString();//期限をGMTで設定
+         document.cookie = data+"="+u_data+ ";expires=" + extime;
+      }
+
+      function taking(key){//keyの取得
+         var cookies = document.cookie;//cookieの取得
+         var cookiesArray = cookies.split(";");//;でcookieを分裂
+         var cArray;
+         for(var c of cookiesArray){//全てのcookiesArray対して
+            cArray = c.split("=");//=で分裂
+            if(cArray[0].trim()==key)break;//みつけたらループを抜ける
+         }
+         return cArray[1];//見つけたデータを返す。
+      }
+
+      function change(){//保存データの変更
+         var judge = prompt("登録情報[名前:"+taking("name")+",趣味:"+taking("hobby")+",訪問回数:"+taking("count")+"回]\n趣味を変更しますか","");//趣味の入力
+         if(judge.toLowerCase()=="yes"){//帰るなら何に変更するかをきく
+            var new_hobby = prompt("趣味を入力してください","");
+            if(new_hobby != "")indata("hobby",new_hobby);//新しい趣味を保存
+         }
+         indata("count",parseInt(taking("count"))+1);//アップデート
+      }
+   </script>
+</head>
+   <body>
+      <h1>Welcome to this page!!</h1>
+      <script type="text/javascript">
+         var userdata = document.cookie;//cookieの取得
+         if (userdata == "")//データが登録されてないならデータセット
+            set_data();
+         else//されてるなら変更
+            change();
+         document.write(taking("hobby")+"が趣味の"+taking("name") + "さん，"+taking("count")+"回目の閲覧有り難うございます．");
+      </script>
+   </body>
+</html> 

@@ -1,0 +1,250 @@
+<html>
+    <meta charset = "UTF-8">
+    <script lan ="javascript">
+        var i,j;//都道府県を示す
+        var int;//インターバルを入れる
+        var correct;//正解数
+        var th;//optionのvalueを入れる
+        var mode_p;//ランダムか順番か
+        var miss_sum=0;//ミスの回数
+        var selected;//選ばれた番号
+        /*全ての正誤データを管理*/
+        var result = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
+        /*都道府県名の配列*/
+        let prefe =   [["北海道"],
+                            ["青森県","秋田県","岩手県","山形県","宮城県","福島県"],
+                            ["群馬県","埼玉県","東京都","栃木県","茨城県","神奈川県","千葉県"],
+                            ["新潟県","山梨県","富山県","愛知県","静岡県","岐阜県","福井県","石川県","長野県"],
+                            ["京都府","大阪府","奈良県","和歌山県","兵庫県","三重県","滋賀県"],
+                            ["鳥取県","岡山県","島根県","広島県","山口県"],
+                            ["愛媛県","香川県","徳島県","高知県"],
+                            ["長崎県","佐賀県","熊本県","宮崎県","鹿児島県","大分県","福岡県","沖縄県"]
+                            ];
+        /*県庁所在地の配列*/
+        let pre_cap =   [["札幌市"],
+                            ["青森市","秋田市","盛岡市","山形市","仙台市","福島市"],
+                            ["前橋市","さいたま市","東京","宇都宮市","水戸市","横浜市","千葉市"],
+                            ["新潟市","甲府市","富山市","名古屋市","静岡市","岐阜市","福井市","金沢市","長野市"],
+                            ["京都市","大阪市","奈良市","和歌山市","神戸市","津市","大津市"],
+                            ["鳥取市","岡山市","松江市","広島市","山口市"],
+                  　        ["松山市","高松市","徳島市","高知市"],
+                            ["長崎市","佐賀市","熊本市","宮崎市","鹿児島市","大分市","福岡市","那覇市"]
+                            ];
+        let region =    [      
+                            ["北海道地方"],
+                            ["東北地方"],
+                            ["関東地方"],
+                            ["中部地方"],
+                            ["関西地方"],
+                            ["中国地方"],
+                            ["四国地方"],
+                            ["九州地方"]
+                        ];
+        /*ミスしたところの記録(都道府県名を間違えた場合1を県庁所在地名を間違えた場合2を地方を間違えた場合5を)*/
+        let miss =      [[1],
+                            [1,1,1,1,1,1],
+                            [1,1,1,1,1,1,1],
+                            [1,1,1,1,1,1,1,1,1],
+                            [1,1,1,1,1,1,1],
+                            [1,1,1,1,1],
+                  　        [1,1,1,1],
+                            [1,1,1,1,1,1,1,1]
+                            ];
+        function setpro(){
+            /*出題モードの切り替え*/
+            /*mode_p=1で都道府県を答える、mode_p=2で県庁所在地を答える、mode_p=3で地方を答える*/
+            /*do_1()でランダムに出題、do_2()で順番に出題*/
+            /*miss_do()で間違えた問題を出題*/
+            if(th=="1"){mode_p=1;do_1();}//ランダムに都道府県を答えるモード
+            else if(th=="2"){mode_p=2;do_1();}//ランダムに県庁所在地を答えるモード
+            else if(th=="3"){mode_p=1;do_2();}//順番に都道府県を答えるモード
+            else if(th=="4"){mode_p=2;do_2();}//順番に県庁所所在地を答えるモード
+            else if(th=="5"){mode_p=3;do_1();}//ランダムに地方を答えるモード
+            else miss_do();//間違えた問題を答えるモード
+        }
+        /*ランダムに県名か県庁所在地名を出力*/
+        function do_1(){//mode_pが1なら県庁所在地を出力、2なら都道府県を出力
+            i = parseInt(Math.random()*8);//8地方からランダムに選出
+            j = parseInt(Math.random()*pre_cap[i].length);//i地方の中からランダムに選出
+            if(mode_p==1)document.getElementById("cd").innerHTML = pre_cap[i][j];//都道府県を答えるモードなら県庁所在地を出力
+            else document.getElementById("cd").innerHTML = prefe[i][j];//県庁所在地を答えるモードか地方を答えるモードなら都道府県を出力
+        }
+        /*順に県名か県庁所在地名を出力*/
+        function do_2(){//mode_pが1なら県庁所在地を、mode_pが2なら都道府県を出力
+            if(mode_p==1)document.getElementById("cd").innerHTML = pre_cap[i][j];
+            else document.getElementById("cd").innerHTML = prefe[i][j];
+        }
+        function miss_do(){
+            var i_m=0,j_m=-1;
+            /*間違えたことのあるところ(miss[i_m][j_m]==2の倍数 or 3の倍数 or 6の倍数)の探索*/
+            var max_miss = miss[0][0];//ミス率の最大の初期値をmiss[0][0]に
+            var i_max=0,j_max=0;//ミス率が最も大きいi_m,j_mを格納する変数
+            while(i_m<8&&j_m<9){//全ての都道府県に対して
+                j_m++;//次の都道府県へ
+                if(pre_cap[i_m].length==j_m){i_m++;j_m=-1;continue;}//その地方が終わったら次の地方へ
+                if(max_miss<miss[i_m][j_m]){//新たなミス率最大が見つかったなら
+                    max_miss = miss[i_m][j_m];//最大ミス率を更新
+                    i_max =i_m;//i_maxを更新
+                    j_max =j_m;//j_maxを更新
+                }
+            }
+            i_m = i_max;//i_mにミス率最大のiを代入
+            j_m = j_max;//j_mにミス率最大のjを代入
+
+            /*都道府県と県庁所在地どちらも間違えているなら県名を優先*/
+            /*miss[i_m][j_m]%2=0なら県庁所在地を出力(都道府県を解答する)*/
+            if(miss[i_m][j_m]%2==0){//ミス率が2の倍数なら
+                mode_p=1;//モードを都道府県に
+                document.getElementById("cd").innerHTML = pre_cap[i_m][j_m];//県庁所在地の出力
+            }
+            /*miss[i][j]%3=0なら県名を出力(県庁所在地を解答する)*/
+            else if(miss[i_m][j_m]%3==0){ //ミス率が3の倍数なら
+                mode_p=2;//モードを県庁所在地に
+                document.getElementById("cd").innerHTML = prefe[i_m][j_m];//都道府県の出力
+                /*miss[i][j]%5=0なら県名を出力(地方を解答する)*/
+            }else if(miss[i_m][j_m]%5==0){//ミス率が5の倍数なら
+                mode_p=3;//モードを地方に
+                document.getElementById().innerHTML = prefe[i_m][j_m];//都道府県の出力
+            }
+        }
+
+        function check(){//解答があっているかのチェック
+            var don = document.getElementById("answer").value;//解答をdonに格納
+            if(mode_p==1){//都道府県モードなら
+                if(don!=prefe[i][j]){//不正解なら
+                    miss_sum+=1;//ミスの合計を1増やす
+                    miss[i][j]*=2;//都道府県を間違えた回数を1増やす
+                    result[selected-1][1]+=1;//このモードで間違えた回数を1増やす
+                    window.alert("残念!正解は"+prefe[i][j]+"でした");//正解の出力
+                }else{ //正解なら
+                    correct++;//正解数の合計を1増やす
+                    document.getElementById("an").innerHTML="正解数"+correct;//正解数の合計を出力
+                    result[selected-1][0]+=1;//このモードで正解した回数を1増やす
+                }
+            }else if(mode_p==2){//県庁所在地モードなら
+                if(don!=pre_cap[i][j]){//不正解なら
+                    miss_sum+=1;//ミスの合計を1増やす
+                    miss[i][j]*=3;//県庁所在地の間違えた回数を1増やす
+                    window.alert("残念!正解は"+pre_cap[i][j]+"でした");
+                    result[selected-1][1]+=1;//このモードで間違えた回数を1増やす
+                }else{ 
+                    correct++;//正解数を1増やす
+                    document.getElementById("an").innerHTML="正解数"+correct;//正解数の出力
+                    result[selected-1][0]+=1;//このモードで正解した回数を1増やす
+                }
+            }else
+                if(don!=region[i]){
+                    miss_sum+=1;//ミス数を1増やす
+                    miss[i][j]*=5;//地方を間違えた回数を1増やす
+                    window.alert("残念!正解は"+region[i]+"でした。");
+                    result[selected-1][1]+=1;//このモードで間違えた回数を1増やす
+                }else{
+                    correct++;//正解数を1増やす
+                    document.getElementById("an").innerHTML="正解数"+correct;//正解数の出力
+                    result[selected-1][0]+=1;//このモードで正解した回数を1増やす
+                }
+            document.getElementById("answer").value="";//答えの欄を初期化
+            j++;//順番の時(do_2())ようにjを1増やす
+            if(i>=7&&j>=7){i=0;j=0;}//一周したなら初期化
+            if(prefe[i].length==j){i++;j=0;}//その地方が全て終わったなら次の地方に移る
+            setpro();//次の問題を出す。
+        }
+        function mode(){//出す問題を決める
+            selected = document.menu.mod.selectedIndex;//オプションの何番目を選んだか
+            if(selected>0){//ここから選択してください以外なら
+                th =  document.menu.mod.options[selected].value;//オプションのvalueを取得
+                i=0;j=0;correct= 0;//i,j,correctを初期化
+                if(miss_sum==0&&th=="6"){//miss_sum=0(間違えたことがない)かつmissモードなら
+                    window.alert("今のところミスはありません。");
+                    return;
+                }
+                //文字の色でモードを判別できるように色を変える
+                if(th=="6")document.getElementById("an").style.color="black";
+                else if(th=="1")document.getElementById("an").style.color="blue";
+                else if(th=="2")document.getElementById("an").style.color="purple";
+                else if(th=="3")document.getElementById("an").style.color="green";
+                else if(th=="4")document.getElementById("an").style.color="red";
+                else document.getElementById("an").style.color="yellow";
+                //問題と解答する場所を出力
+                    document.getElementById("an").innerHTML = "正解数:"+correct;
+                    document.getElementById("text").innerHTML="";
+                    document.getElementById("text").innerHTML+= "<div id='cd'></div><br>";
+                    document.getElementById("text").innerHTML+="<input type='text' id='answer'><br>";
+                    document.getElementById("text").innerHTML+="<input type='button' id='mode'"+"onclick='check()'"+"value='答える'"+">";
+                    //問題を作成
+                    setpro();
+            }
+        }
+        function output(){//全ての結果の出力
+            var string = "";//文字列を初期化
+            var st;//モード名
+            var sum_c=0;//正解数
+            var sum_m=0;//ミス数
+            var percent;//正答率
+
+            /*stにモード名を格納*/
+            for(var q=0;q<5;q++){//全てのモードに対して
+                if(q==0)st = "ランダム(都道府県)";
+                else if(q==1)st = "ランダム(県庁所在地)";
+                else if(q==2)st = "順番(都道府県)";
+                else if(q==3)st = "順番(県庁所在地)";
+                else if(q==4)st = "ランダム(地方)"
+                else st = "間違ったところの復習";
+                sum_c += result[q][0];//合計正解回数を算出
+                sum_m += result[q][1];//合計ミス回数を算出
+                if(result[q][0]==0)percent=0;//一度も正解してないなら正答率0%
+                else percent = parseInt(result[q][0]*100/(result[q][0]+result[q][1]));//整数で正答率計算
+                string += st+"[正解数:"+result[q][0]+",ミスの回数:"+result[q][1]+"],正答率:"+percent+"%\n";//出力する文字列作成
+            }
+            /*正解数とミス数の合計データを入れた文字列作成*/
+            string +="合計正解回数:"+sum_c+",合計ミス回数:"+sum_m;
+            window.alert(string);//結果を出力
+        }
+        function output_data(){//間違えた問題を確認する
+            if(miss_sum==0){window.alert("今のところミスはありません。");}//ミスしてないならそう表示
+            else{//ミスしたなら
+                var string ="";//文字列を初期化
+                for(var i_m=0;i_m<miss.length;i_m++){//全てのiに対して
+                    var flag_m = 0;//ミスしたかのフラグチェック(改行するかどうかに使う)
+                    for(var j_m=0;j_m<miss[i_m].length;j_m++){//全てのjに対して
+                        if(miss[i_m][j_m]!=1){//[i_m][j_m]を間違えてるなら
+                            flag_m=1;//ミスしてるならフラグを立てる
+                            var miss_ij = miss[i_m][j_m];//ミスの値を入れる
+                            var mi = [0,0,0];//mi[０]が都道府県をミスした回数mi[1]が県庁所在地をミスした回数mi[2]が地方をミスした回数
+                            while(miss_ij!=1){//ミスした値が1になる(ミスした回数が0になる)まで
+                                if(miss_ij%2==0){miss_ij/=2;mi[0]+=1;}//都道府県名を間違えた回数が1以上ならミス数を1増やす
+                                if(miss_ij%3==0){miss_ij/=3;mi[1]+=1;}//県庁所在地名を間違えた回数が1以上ならミス数を1増やす
+                                if(miss_ij%5==0){miss_ij/=5;mi[2]+=1;}//地方名を間違えた回数が1以上ならミス数を1増やす
+                            }
+                            /*出力する文字列にミス回数を格納*/
+                            if(mi[0]>0)string+=pre_cap[i_m][j_m]+"→"+prefe[i_m][j_m]+":"+mi[0]+" ";//都道府県を間違えてるなら出力する配列に入れる
+                            if(mi[1]>0)string+=prefe[i_m][j_m]+"→"+pre_cap[i_m][j_m]+":"+mi[1]+" ";//県庁所在地を間違えてるなら出力する配列に入れる
+                            if(mi[2]>0)string+=prefe[i_m][j_m]+"→"+region[i_m]+":"+mi[2];//地方を間違えてるなら出力する配列に入れる。
+                        }
+                    }
+                    if(flag_m==1)string+="\n";//地方ごとに改行する
+
+                }
+                window.alert(string);//以上で作成したstringをalertで出力
+            }
+        }
+    </script>
+    <body id="body">
+        <form name = "menu">
+            <select name ="mod" onchange = "mode()">
+                <option>ここから選択してください。
+                <option value = "1">ランダム(都道府県)
+                <option value = "2">ランダム(県庁所在地)
+                <option value = "3">順番(都道府県)
+                <option value = "4">順番(県庁所在地)
+                <option value = "5">ランダム(地方)
+                <option value = "6">間違ったところの復習
+            </select>
+        </form>
+        <div id="text"></div>
+        <br>
+        <u><div id= "an">正解数:0</div></u>
+        <button onclick = "output()">結果</button>
+        <button onclick = "output_data()">間違えた箇所</button>
+    </body>
+</html>

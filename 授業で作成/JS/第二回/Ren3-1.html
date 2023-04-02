@@ -1,0 +1,26 @@
+<html>
+    <head>
+    <script language="JavaScript">
+    function mdown (th) {
+        if(th.name == "button1"){
+            document.pbt.button1.value = "thank you";
+        }else{
+            document.pbt.button2.value = "thank you";
+        }
+  }
+  function mup (th) {
+        if(th.name == "button1"){
+            document.pbt.button1.value = "press again";
+        }else{
+            document.pbt.button2.value = "press again";
+        }
+  }
+  </script>
+ </head>
+ <body>
+  <form name = "pbt">
+    <input type = "button" name = "button1" onmousedown = "mdown(this)" onmouseup = "mup(this)" value = "press here"><br>
+    <input type = "button" name = "button2" onclick = "mdown(this)" ondblclick = "mup(this)" value = "click here">
+  </form>
+ </body>
+</html>

@@ -1,0 +1,31 @@
+<head>
+<title>練習問題3</title>
+<meta charset ="UTF-8">
+<script type="text/javascript">
+var update = new Date (document.lastModified);
+var upyear = update.getFullYear ( );
+var upmonth = update.getMonth ( ) + 1;
+var upday = update.getDate ( );
+document.write ("Last Update:" + upyear + "/" + upmonth + "/" + upday);
+
+var i =1;
+
+function setcolor ( ) {
+   if (i == 3)
+      i = 0;
+   i++;
+   if (i==2)
+      document.fgColor="blue";
+   else if (i==3)
+      document.fgColor="yellow";
+   else
+      document.fgColor="red";
+}
+</script>
+</head>
+
+<body>
+<body onload = "sss=setInterval ('setcolor( )', 1000)"><br>
+<button onclick="clearInterval(sss)">終了</button>
+</body>
+</html>

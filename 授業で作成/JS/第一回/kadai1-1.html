@@ -1,0 +1,42 @@
+<html>
+  <meta charset = "UTF-8">
+ <head>
+  <script type="text/javascript">
+    
+   function prdate ( ) {
+       //開始日のデータとして入力されたものをyear,month,dateに格納
+    var year = parseInt(document.getElementById("st_year").value);
+    var month = parseInt(document.getElementById("st_month").value);
+    var date = parseInt(document.getElementById("st_date").value);
+    //開始日の日付を定義
+    var start = new Date(year,month-1,date);//月は0から11なため
+    //終了日のデータとして入力されたものをyear,month,dateに定義
+    year = parseInt(document.getElementById("e_year").value);
+    month = parseInt(document.getElementById("e_month").value);
+    date = parseInt(document.getElementById("e_date").value);
+    //終了日の日付を定義
+    var end = new Date(year,month-1,date);//月は0から11なため
+    //開始日と終了日の差分を86400000(１日あたりの秒数)
+    var result = (end-start)/86400000;
+    //経過日数と経過週数を計算
+    var result_day=result,result_week=parseInt(result/7);
+    //結果の定義と出力
+    var pdate = "経過日数:"+result_day+"日"+" 経過週数:"+result_week+"週です.";
+    window.alert(pdate);
+    }
+  </script>
+ </head>
+ <body>
+  <p>開始日:
+    <input type="text" id="st_year">年
+    <input type="text" id="st_month">月
+    <input type="text" id="st_date">日
+  </p>
+  <p>終了日:
+    <input type="text" id="e_year">年
+    <input type="text" id="e_month">月
+    <input type="text" id="e_date">日
+  </p>
+    <button type ="button" onclick="prdate()">計算</button>
+ </body>
+</html> 

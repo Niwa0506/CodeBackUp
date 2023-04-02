@@ -1,0 +1,19 @@
+<html>
+
+<head>
+<title>練習問題１</title>
+<script type="text/javascript">
+function setposition (mleft,mtop) {
+   document.images["myimg"].style.left = mleft;
+   document.images["myimg"].style.top = mtop;
+}
+</script>
+</head>
+
+<body>
+<img src="imgGreece1.jpg" name="myimg" style="position:absolute;left:200;top:400">
+<a href="javascript:setposition (50,100)">画像を原点(50,100)に移動</a><br>
+<a href="javascript:setposition (100,200)">画像を(100, 200)に移動</a>
+
+</body>
+</html>

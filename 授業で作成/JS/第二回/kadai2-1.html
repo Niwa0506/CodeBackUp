@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+    <style type="text/css">
+    /*表形式の指定*/
+    #editTbl{
+        border-collapse: collapse; /*枠線の表示方法  間隔をあけて表示 */
+        border-spacing: 0; /* 隣合うセルのボーダーにできた隙間の幅を指定 */
+    }
+    /*tr(列)とtd(行)の共通の設定*/
+    #editTbl tr,td{
+        padding: 5px 15px;
+        border-bottom: 1px solid #000000;
+        border-left: 1px solid #000000;
+        text-align:center;
+    }
+    /*行成分独自の設定*/
+    #editTbl td{
+        text-align: right;
+    }
+    </style>
+    <head>
+        <title>8進数３桁</title>
+        <table border ="1" style = "border-collapse:collapse">
+            <tr style = "background-color:gray;">
+                <td>8<sup>2</sup>の位</td><td>8<sup>1</sup>の位</td><td>8<sup>0</sup>の位</td>
+            </tr>
+            <script type="text/javascript">
+                var i,j,flag=0;
+                var eight = new Array(150);
+                for(j=0;j< 50;j++){//全ての行に対して
+                    for(i=0;i< 3;i++){ //全ての列に対して
+                    /*８未満の数字をラランダムに一次元配列に格納*/
+                        eight[j*3+i] = Math.floor(Math.random()*8);
+                    }
+                }
+                for(j=0;j< 50;j++){//全ての行に対して
+                    for(i=0;i<j;i++){
+                        /*行成分が全て同じならフラグ(赤文字にする)を立てる*/
+                        if(eight[i*3]==eight[j*3]){
+                            if(eight[i*3+1]==eight[j*3+1]){
+                                if(eight[i*3+2] == eight[j*3+2]){
+                                    flag=1;
+                                }
+                            }
+                        }
+                    }
+                    /*フラグに応じて文字色を変化*/
+                    if(flag==0){
+                        document.write('<tr>');
+                        document.write('<td>'+eight[j*3]+'</td>');
+                        document.write('<td>'+eight[j*3+1]+'</td>');
+                        document.write('<td>'+eight[j*3+2]+'</td>');
+                        document.write('</tr>');
+                    }else{
+                        document.write('<tr style = "color:red">');
+                        document.write('<td>'+eight[j*3]+'</td>');
+                        document.write('<td>'+eight[j*3+1]+'</td>');
+                        document.write('<td>'+eight[j*3+2]+'</td>');
+                        document.write('</tr>');
+                    }
+                    flag = 0;
+                }
+            </script>
+        </table>
+    </head>
+    <body>
+    </body>
+</html>

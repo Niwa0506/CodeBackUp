@@ -1,0 +1,44 @@
+<html>
+    <meta charset = "UTF-8">
+    <script lan ="javascript">
+        var i,j;
+        let prefe =   [["北海道"],
+                            ["青森県","秋田県","岩手県","山形県","宮城県","福島県"],
+                            ["群馬県","埼玉県","東京都","栃木県","茨城県","神奈川県","千葉県"],
+                            ["新潟県","山梨県","富山県","愛知県","静岡県","岐阜県","福井県","石川県","長野県"],
+                            ["京都府","大阪府","奈良県","和歌山県","兵庫県","三重県","滋賀県"],
+                            ["鳥取県","岡山県","島根県","広島県","山口県"],
+                            ["愛媛県","香川県","徳島県","高知県"],
+                            ["長崎県","佐賀県","熊本県","宮崎県","鹿児島県","大分県","福岡県","沖縄県"]
+                            ];
+        let pre_cap =   [["札幌市"],
+                            ["青森市","秋田市","盛岡市","山形市","仙台市","福島市"],
+                            ["前橋市","さいたま市","東京","宇都宮市","水戸市","横浜市","千葉市"],
+                            ["新潟市","甲府市","富山市","名古屋市","静岡市","岐阜市","福井市","金沢市","長野市"],
+                            ["京都市","大阪市","奈良市","和歌山市","神戸市","津市","大津市"],
+                            ["鳥取市","岡山市","松江市","広島市","山口市"],
+                            ["松山市","高松市","徳島市","高知市"],
+                            ["長崎市","佐賀市","熊本市","宮崎市","鹿児島市","大分市","福岡市","那覇市"]
+                            ];
+        function setpro(){
+            i = parseInt(Math.random()*8);
+            j = parseInt(Math.random()*pre_cap[i].length);
+            document.getElementById("text").innerHTML = prefe[i][j];
+        }
+
+        function check(){
+            var don = document.getElementById("answer").value;
+            if(don==pre_cap[i][j]){
+                window.alert("正解です.");
+                document.getElementById("answer").value="";
+                setpro();
+            }
+            else window.alert("違います");
+        }
+    </script>
+    <body onload = "setpro()">
+        <div id="text"></div>
+        <input type="text" id ="answer"><br>
+        <input type="button" id = "mode" value = "答える">
+    </body>
+</html>

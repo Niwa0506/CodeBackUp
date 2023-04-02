@@ -1,0 +1,115 @@
+<html>
+    <meta charset = "UTF-8">
+    <form name = "menu">
+        <select name ="list" onchange = "new2()">
+            <option>ここから選択してください。
+            <option>ブックマーク集
+            <option>2021年の残り時間
+            <option>背景自動変更
+        </select>
+    </form>
+    
+    <SCRIPT LANGUAGE="JavaScript">
+        var flag=0;var nwin;//新しいwindow(nwin)とflagを定義
+        /*
+            　onchangeで新しいwindowを開こうとするとポップアップブロックされて
+            　新しいwindowが開けないため、選んだら一度だけボタンを作成し
+            　そのボタンを押すことで、ボタンによって飛ぶようにした                      
+        */
+
+       onload = function new1(){
+            /*各ページに飛ぶためのsホームページを作成*/
+            document.write("<form name = 'menu'>");
+            document.write("<select name ='list' onchange = 'new2()'>");
+            document.write("<option>ここから選択してください。");
+            document.write("<option>ブックマーク集");
+            document.write("<option>2021年の残り時間");
+            document.write("<option>背景自動変更");
+            document.write("</select>");
+            document.write("</form>");
+            document.write("<button type='button' onclick = window.close()>閉じる</button>");
+        }
+        function new2(){
+            //飛ぶためのボタンを作成
+            if(flag==0){flag=1;//何回もボタンを作らないためにフラグを立てる
+            document.write("<button type='button' onclick = 'newwindow3()'>開く</button>");
+            }
+        }
+        function newwindow3(){//セレクトされた番号に応じてひらくwindowを決める
+            var selected = document.menu.list.selectedIndex;
+            if(selected==1)newwindow();
+            else if(selected==2)newwindow1();
+            else if(selected==3)newwindow2();
+        }
+        function newwindow() {//ブックマーク集のページ作成
+            /*新しいwindowの基本設定とselect作成*/
+            nwin = window.open("", "Newwindow","width=280,height=480,sub");
+            nwin.document.open();
+            nwin.document.write("<HTML>");
+	        nwin.document.writeln("<BODY>");
+            nwin.document.write("<form name = 'bkmkmenu'>");
+            nwin.document.write("<select name ='bkmks'>");
+            nwin.document.write("<option>ここから選択してください");
+            nwin.document.write("<option value = 'http://www.uec.ac.jp'>電気通信大学");  
+            nwin.document.write("<option value = 'http://www.uec.ac.jp/department/ie/j/'>電気通信大学情報理工学部総合情報学科");  
+            nwin.document.write("<option value = 'http://wlgate.ice.uec.ac.jp'>電気通信大学柏原研究室");
+            nwin.document.write("<option value = 'http://www.google.co.jp'>検索エンジン:google");
+            nwin.document.write("<option value = 'http://www.amazon.co.jp'>amazon.co.jp");
+            nwin.document.write("</select>");
+            nwin.document.write("</form>");
+            nwin.document.write("<button type='button' onclick = 'window.open(document.bkmkmenu.bkmks.options[document.bkmkmenu.bkmks.selectedIndex].value)'>開く</button>");
+            nwin.document.write("<button type='button' onclick = 'window.close()'>閉じる</button>");
+	        nwin.document.write("</BODY></HTML>");
+	        nwin.document.close();
+        }
+        //残り時間表示のための定義
+        var today,end,result_d,result,result_h,result_m,result_s;
+        function newwindow1(){//2021の残り時間を表示するためのページ作成
+            /*新しいwindowの基本設定*/
+            nwin = window.open("", "Newwindow","width=280,height=480,sub");
+            nwin.document.open();
+            nwin.document.write("<HTML>");
+	        nwin.document.writeln("<BODY id ='res'>");
+	        nwin.document.write("</BODY></HTML>");
+	        nwin.document.close();
+            /*1秒ごとに残り時間を算出*/
+            setInterval('calc()',1000);
+        }
+
+        function calc(){//2021年の残り時間の計算と出力
+            var today = new Date();//今日を取得
+            var end = new Date(2022,0,1);//2022年1月1日をゴールに設定
+            var result_d = parseInt((end-today)/86400000);//残り日数を取得
+            var result   = (end-today)%86400000;//日付を引いた時間を算出
+            var result_h = parseInt(result/3600000);//残り時間を取得
+            var result_t = result%3600000;//時間を引いた時間を算出
+            var result_m = parseInt(result_t/60000);//残り分を取得
+            var result_s = result_t%60000;//残り秒数を取得
+            result_s = parseInt(result_s/1000);//msをsに変換
+            /*画面に残り時間と閉じるボタンを出力*/
+            nwin.document.getElementById("res").innerHTML = ('残り時間='+result_d+'日'+result_h+'時間'+result_m+'分'+result_s+'秒'+'<br>'+"<button onclick = 'window.close()'>閉じる</button>");
+        }
+
+        function newwindow2(){//背景自動変更
+            /*新しいwindowの基本設定*/
+            nwin = window.open("", "Newwindow","width=280,height=480,sub");
+            nwin.document.open();
+            nwin.document.write("<HTML>");
+	        nwin.document.writeln("<BODY id='back'>");
+            nwin.document.write("<button type='button' onclick = 'window.close()'>閉じる</button>");
+	        nwin.document.write("</BODY></HTML>");
+	        nwin.document.close();
+            /*3秒ごとに背景色を変更*/
+            setInterval('count()',3000);
+        }
+
+        function count(){//背景色を算出
+            /*赤、青、緑をランダムに求める*/
+            var red = parseInt(Math.random()*256);
+            var blue = parseInt(Math.random()*256);
+            var green = parseInt(Math.random()*256);
+            /*背景色の設定*/
+            nwin.document.getElementById("back").style.backgroundColor= "rgb("+red+","+blue+","+green+")";
+        }
+    </SCRIPT>
+</html>

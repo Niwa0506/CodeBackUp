@@ -1,0 +1,26 @@
+<html>
+    <meta charset = "UTF-8">
+ <head>
+  <script type="text/javascript">
+   function pmove(){
+    var selected = document.bkmkmenu.bkmks.selectedIndex;//押された番号を取得
+    /*番号に応じて画像を変更*/
+        document.images["myImg1"].src = document.bkmkmenu.bkmks.options[selected].value;
+
+   }
+  </script>
+ </head>
+ <body>
+  <form name = "bkmkmenu">
+      <img src = "imgGreece1.jpg" name = "myImg1"><br>
+   <select name ="bkmks" onchange = "pmove()">
+    <option value = "imgGreece1.jpg">電気通信大学
+    <option value = "imgGreece2.jpg">電気通信大学情報理工学部総合情報\
+学科
+<option value = "imgGreece3.jpg">電気通信大学柏原研究室
+    </select>
+  </form>
+ </body>
+</html>
+
+

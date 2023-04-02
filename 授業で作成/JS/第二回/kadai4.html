@@ -1,0 +1,71 @@
+<html>
+    <meta charset  ="UTF-8">
+    <body id ="result">
+    <script language  ="JavaScript">
+        var int;//インターバルの定義
+        var challenge;//挑戦回数
+        var point;//ゲットしたポイント
+        var n;//残り実行回数
+        var max;//最大数
+        function stup(){//ゲームのセットアップ
+            challenge = 20;point=0;max=0;n=challenge;//各種データの初期化
+            int  = setInterval("game()",1000);//game()を一秒ごとに実行
+        }
+        function game(){//画面の出力
+            document.getElementById("count").innerHTML =challenge;//残り挑戦可能回数の表示
+            challenge -= 1;//残り挑戦回数から1ひく
+            if(challenge!=-1){
+                /*5つの値をランダムに算出*/
+                document.g_switch.gs_1.value = parseInt(Math.random()*100)+1;
+                document.g_switch.gs_2.value = parseInt(Math.random()*100)+1;
+                document.g_switch.gs_3.value = parseInt(Math.random()*100)+1;
+                document.g_switch.gs_4.value = parseInt(Math.random()*100)+1;
+                document.g_switch.gs_5.value = parseInt(Math.random()*100)+1;
+            }else{//チャレンジ回数が残ってないならゲーム終了
+                /*ボタン非表示*/
+                document.g_switch.gs_1.style.visibility = "hidden";
+                document.g_switch.gs_2.style.visibility = "hidden";
+                document.g_switch.gs_3.style.visibility = "hidden";
+                document.g_switch.gs_4.style.visibility = "hidden";
+                document.g_switch.gs_5.style.visibility = "hidden";
+                clearInterval(int);
+            }
+            /*取得ポイントの表示*/
+            document.getElementById("tochu").innerHTML = "取得ポイント:"+point+"点";
+        }
+        function getpoint(t){
+            var flag=0;//入力したことを示すフラグを用意
+            if(n-1>=challenge){//残り実行回数が残り挑戦可能回数より1多いなら
+                n -=1;//残り実行回数を1減らす
+                for(var i=0;i<5;i++){//全ての要素に対して
+                var p = parseInt(document.g_switch.elements[i].value);//iが示す要素を取得
+                if(p>parseInt(t.value)){flag=1;break;}//もしtの要素より大きいのがあるならループ終了
+                }
+                if(flag==0){//もしtより大きいのがなかったら
+                    point+=parseInt(t.value);//t分加点
+                    /*バーを一回分移動させる*/
+                    document.getElementById("bar").style.left= parseFloat(document.getElementById("bar").style.left)+12.5;
+                }
+                else {//最大でなかったら
+                    point-=parseInt(t.value);//t分減点
+                }
+            }
+        }
+    </script>
+        <button onclick = "stup()" id = "count" style="position:absolute;left:110px">start</button><br>
+        <form name="g_switch">
+            <input type="button" name="gs_1" value="SW1" style="width:50px; height: 20px; font-size:15px;padding:0px" onclick ="getpoint(this)">
+            <input type="button" name="gs_2" value="SW2" style="width:50px; height: 20px; font-size:15px;padding:0px" onclick ="getpoint(this)">
+            <input type="button" name="gs_3" value="SW3" style="width:50px; height: 20px; font-size:15px;padding:0px" onclick ="getpoint(this)">
+            <input type="button" name="gs_4" value="SW4" style="width:50px; height: 20px; font-size:15px;padding:0px" onclick ="getpoint(this)">
+            <input type="button" name="gs_5" value="SW5" style="width:50px; height: 20px; font-size:15px;padding:0px" onclick ="getpoint(this)">
+        <br>
+        </form>
+        <div id="range"style="position:relative"><hr color="black" align ="left" width="250">
+             <span id="bar" style="position:absolute;top: -11px;left:0px;font-size:15px">■</span>
+             <span id="bar" style="position:absolute;top:-7px;left:125px">|</span>
+        </div>
+        <span>0</span><span style="position:absolute;left:125px"> 10</span><span style="position:absolute;left:250px">20</span>
+        <div id ="tochu"style="position:absolute;left:200px"><u>取得ポイント:0点</u></div>
+    </body>
+</html>

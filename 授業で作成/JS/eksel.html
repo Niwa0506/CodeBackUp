@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<meta charset = "UTF-8">
+<title></title>
+
+<table id="table1" border="1">
+<tr>
+<th>No</th>
+<th>日付</th>
+<th>名前</th>
+<th>使用</th>
+<th>店舗名</th>
+<th>金額</th>
+</tr>
+<tr>
+<th>1</th>
+<td>2009/09/16</td>
+<td>てすと</td>
+<td>備品購入</td>
+<td>文房具店</td>
+<td>2980</td>
+</tr>
+<tr>
+<th>2</th>
+<td>2009/09/16</td>
+<td>てすと</td>
+<td>備品購入</td>
+<td>文房具店</td>
+<td>2,980</td>
+</tr>
+<tr>
+<th>3</th>
+<td>2009/09/16</td>
+<td>てすと</td>
+<td>備品購入</td>
+<td>文房具店</td>
+<td>3500</td>
+</tr>
+<tr>
+<td colspan="4">&nbsp;</td>
+<td>合計</td>
+<td id="total">&nbsp;</td>
+</tr>
+</table> 
+
+<script type="text/javascript">
+
+var calc = (function ( comma, get ) {
+  return function ( ansId, fstr ) {
+    var ans = document.getElementById( ansId );
+    var table = get( ans, 'nodeName', 'TABLE');
+
+    if(! table ) return;
+    var f = fstr.replace( /(r([0-9]+)c([0-9]+))/g,
+      (function (_tb) {
+        return function (dmy0, dmy1, r, c) {
+          try {
+            var v = _tb.rows[+r].cells[+c].firstChild.nodeValue.replace( /,/g, '');
+            return isNaN( v ) ? 0: v;
+          } catch(e) {
+            return 0;
+          }
+        };
+      })(table)
+    );
+    ans.firstChild.nodeValue = comma( eval( f ) );
+  };
+})(
+  function ( num ) {
+    return (''+num).replace(/^(-?[0-9]+)(?=\.|$)/, function(s){ return s.replace(/([0-9]+?)(?=(?:[0-9]{3})+$)/g, '$1,');});
+  },
+  function (node, type, val) {
+    return node ? (val == node[type]) ? node: arguments.callee(node.parentNode, type, val): null;
+  }
+
+)
+
+
+
+calc( 'total', 'r1c5 + r2c5 + r3c5' );
+</script>

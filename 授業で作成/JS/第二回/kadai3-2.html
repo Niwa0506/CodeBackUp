@@ -1,0 +1,52 @@
+<html>
+  <meta charset = "UTF-8">
+  <head>
+    <script type="text/javascript">
+      function scrclr () {
+        for (i=0; i<document.tstform.length; i++) {
+          if (document.tstform.elements[i].type != "button") {
+            document.tstform.elements[i].value = "";
+          }
+        }
+        document.tstform.english.focus ( );
+      }
+      function cave () {
+        var str1 = document.tstform.english.value;//英語の点数取得
+        var str2 = document.tstform.mathmatics.value;//数学の点数取得
+        var result_en = parseInt(str1);//int型に変換
+        var result_ma =  parseInt(str2);//int型に変換
+        if(str1.match(/[^0-9 . -]|[¥s]+/)||str1 == ""){ // 入力チェック
+            alert("半角数値を入れてください。"); 
+            return;} 
+        if(str2.match(/[^0-9 . -]|[¥s]+/)||str2 == ""){ // 入力チェック
+            alert("半角数値を入れてください。"); 
+            return;} 
+          /*点数に応じて出力内容を変更*/
+        if(result_en<60)document.tstform.eresult.value = "不可";
+        else if(result_en<70)document.tstform.eresult.value = "可";
+        else if(result_en<80)document.tstform.eresult.value = "良";
+        else if(result_en<90)document.tstform.eresult.value = "優";
+        else document.tstform.eresult.value = "秀";
+
+        if(result_ma<60)document.tstform.mresult.value = "不可";
+        else if(result_ma<70)document.tstform.mresult.value = "可";
+        else if(result_ma<80)document.tstform.mresult.value = "良";
+        else if(result_ma<90)document.tstform.mresult.value = "優";
+        else document.tstform.mresult.value = "秀"; 
+      }
+    </script>
+  </head>
+
+  <body onload = "scrclr ( )">
+    <form name = "tstform">
+      英語の点数：<input type = "text" name = "english" size = 3>点
+      数学の点数：<input type = "text" name = "mathmatics" size = 3>点
+      <br><br>
+      <input type = "button" onclick = "cave()" value = "単位計算">
+      <input type = "button" onclick = "scrclr ()" value = "キャンセル">
+      <br><br>
+      英語:<input type = "text" name = "eresult" size = 3>
+      数学:<input type = "text" name = "mresult" size = 3><br>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <meta charset = "UTF-8">
+    <head>
+        <script type="text/javascript">
+            var speed;//スクロールする速さ
+            var interval=100; //一動作ごとの合間時間
+            var int;    //setIntervalとclearIntervalで使う変数
+            var limit;   //実行を止める現在位置からの距離
+            var count=0;//実行回数
+            var sum=0;
+
+            function move_scroll(){
+                count+=1;//カウントを増やす
+                window.scrollBy(0,speed);//現在地からspeed分スクロール
+                if(limit==0){//limitが0かつスクロールの位置が0以下ならスクロール終了
+                    if(sum<=0){clearInterval(int);count=0;sum=0;}
+                }else if(limit==500){//limitが500(写真一枚分)かつカウントが500ならスクロール終了
+                    if(count==500){
+                        clearInterval(int);count=0;
+                    }
+                }
+            }
+
+            function next_scroll(){//ページ下部へスクロールを実行
+                speed = 1;limit = 500;//スピードと実行回数の上限を設定
+                int  = setInterval("move_scroll()",interval);
+            }
+
+            function previous_scroll(){//ページ上部へスクロールを実行
+                speed = -1;limit = 500;
+                int  = setInterval("move_scroll()",interval);
+            }
+
+            function top_scroll(){//ページトップへスクロールを実行
+                speed = -1;limit = 0;
+                int  = setInterval("move_scroll()",interval);
+            }
+
+            window.onscroll = function add2(){
+                sum=window.scrollY;
+            }
+        </script>
+    </head>
+ <body>
+    <div style="position:absolute;left:0px;top:0px;font-size:35px;">クレタ島の風景</div>
+    <div style="position:absolute;left:0px;top:80px;font-size:15px">写真ごとに上下にスクロール</div>
+    <img src="imgGreece1.jpg" name="myImg1" style = "position:absolute;left:0px;top:100px">
+    <p><button type="button" onclick = "next_scroll()"style = "position:absolute;left:0px;top:578px">The next photo</button></p>
+    <img src="imgGreece2.jpg" name="myImg2" style = "position:absolute;left:0px;top:600px">
+    <p>
+        <button type="button" onclick = "previous_scroll()"style = "position:absolute;left:0px;top:1078px">The previous photo</button>
+        <button type="button" onclick = "next_scroll()"style = "position:absolute;left:150px;top:1078px">The next photo</button>
+    </p>
+
+    <img src="imgGreece3.jpg" name="myImg3"style = "position:absolute;left:0px;top:1100px">
+    <p><button type="button" onclick = "previous_scroll()"style = "position:absolute;left:0px;top:1578px">The previous photo</button></p>
+    <p><button type="button" onclick = "top_scroll()"style = "position:absolute;left:0px;top:1598px">Top</button></p>
+
+ </body>
+</html>

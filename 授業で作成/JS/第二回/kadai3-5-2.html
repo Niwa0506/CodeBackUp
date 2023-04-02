@@ -1,0 +1,24 @@
+<html>
+    <meta charset = "UTF-8">
+    <body id = "time">
+        <script type="text/javascript">
+            onload = function startup(){
+                /*1秒ごとに残り時間を算出*/
+                var int = setInterval("autotime()",1000);
+            }
+            function autotime(){
+                var today = new Date();//今日を取得
+                var end = new Date(2022,0,1);//ゴールを2022/1/1に設定
+                var result_d = parseInt((end-today)/86400000);//日数を取得
+                var result   = (end-today)%86400000;
+                var result_h = parseInt(result/3600000);//残り時間を取得
+                var result_t = result%3600000;
+                var result_m = parseInt(result_t/60000);//残り分を取得
+                var result_s = result_t%60000;//残りm秒を取得
+                result_s = parseInt(result_s/1000);//msをsに変換
+                /*結果を出力*/
+                document.getElementById("time").innerHTML ='残り時間='+result_d+'日'+result_h+'時間'+result_m+'分'+result_s+'秒'+'<br>'+"<button type= 'button' onclick = 'window.close()'>閉じる</button>";
+            }
+        </script>
+    </body>
+</html>

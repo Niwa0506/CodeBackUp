@@ -1,0 +1,62 @@
+<html>
+    <meta charset ="UTF-8">
+    <body　id ="body">
+        <table border ="1" style = "border-collapse:collapse" id = "myTbl">
+            <script type = "text/javascript">
+                var new_window = new Array(5);
+                /*URLの配列*/
+                var r = new Array(
+                    "https://webclass.cdel.uec.ac.jp",
+                    "https://www.ied.inf.uec.ac.jp/text/laboratory/index.html",
+                    "https://ja.wikipedia.org/wiki/Java",
+                    "https://ja.wikipedia.org/wiki/JavaScript",
+                    "https://ja.wikipedia.org/wiki/HyperText_Markup_Language"
+                );
+                /*window読み込み時に動作*/
+                window.onload = function setup(){
+                    var myTbl = document.getElementById("myTbl");
+                    for(var i=0;i<myTbl.rows.length;i++){//全ての列に対して
+                        for( var j=1;j<myTbl.rows[i].cells.length;j++){//全ての行に対して
+                            if(j==1)//openボタンには、"button+i"のidを付与
+                                myTbl.rows[i].cells[j].setAttribute('id','button'+i);
+                            else//closeボタンには、"button+i+5"のidを付与
+                                myTbl.rows[i].cells[j].setAttribute('id','button'+i+5);
+                            //表内のボタンが押された時の動作
+                            myTbl.rows[i].cells[j].onclick = function(){    
+                                var myTbl = document.getElementById("myTbl");
+                                /*行の何番目か*/
+                                var k = document.getElementById(this.id).cellIndex;
+                                /*列の何番目かの算出*/
+                                var w;
+                                for(w=0;w<5;w++){
+                                    if(myTbl.rows[w].cells[k].id==this.id)break;
+                                }
+                                if(k==1){//openボタンなら
+                                    createNewWindow(r[w],w);
+                                }else{//closeボタンなら
+                                    closewindow(w);
+                                }
+                            }
+                        }
+                    }
+                }
+                function createNewWindow (z,n) {
+                    //横の長さ400px,縦の長さ600px,URL表示し,スクロールバーを持つwindowを開く
+                    new_window[n] =window.open(z,n+"ページ","width=400,height=600,location=1,scrollbars=1");
+                }
+                function closewindow(n){
+                    //windowを閉じる
+                    new_window[n].close();
+                }
+                /*表の作成*/
+                for(var s=1;s<6;s++){
+                    document.write("<tr>");
+                    document.write("<td>"+s+"番目のページ"+"</td>");
+                    document.write("<td>"+"<button type='button'>"+"Open"+"</button>"+"</td>");
+                    document.write("<td>"+"<button type='button'>"+"Close"+"</button>"+"</td>");
+                    document.write("</tr>");
+                }
+            </script>
+        </table>
+    </body>
+</html>

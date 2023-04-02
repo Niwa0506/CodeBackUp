@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<title>べきじょうの計算</title>
+<style type="text/css">
+ /*表形式の指定*/
+#editTbl{
+    border-collapse: separate; /* 枠線の表示方法  間隔をあけて表示 */
+    border-spacing: 0; /* 隣合うセルのボーダーにできた隙間の幅を指定 */
+    border-top: 1px solid #b0c4de; /* 枠線 borderプロパティ: 太さ 種類 色 */
+    border-right: 1px solid #b0c4de;
+}
+#editTbl th,td{
+    padding: 5px 15px;
+    border-bottom: 1px solid #b0c4de;
+    border-left: 1px solid #b0c4de;
+}
+#editTbl th{
+    color: #000;
+    background: #d7ffd7;
+}
+#editTbl td{
+    text-align: right;
+}
+#editTbl p{
+    margin: 0; 
+}
+#editTbl span{
+    padding-left:1px; 
+    color: #000000;
+}
+</style>
+<script type="text/javascript">
+
+    function calcTbl() {//表に出力するデータの計算
+        var num1,num2,total,i,j;
+        var myTbl = document.getElementById('editTbl');
+        for(i=1;i< 7;i++){//全ての行に対して
+            num1 = 0,num2 = myTbl.rows[i].cells[0].innerHTML; //num1はべきじょうする値、num2はべきじょうする回数
+            total = 0;//その行の合計値 
+            num2 = parseInt(num2);//数値に変換
+            for(j=1;j< myTbl.rows[i].cells.length-1;j++){ //全ての列に対して
+                num1=myTbl.rows[0].cells[j].innerHTML; // べきじょうする値を取得
+                num1 = parseInt(num1); // 数値に変換 
+                num1 = Math.pow(num1,num2); //べきじょうした値
+                myTbl.rows[i].cells[j].innerHTML = num1;//値を表に代入
+                total+=num1;//合計値
+            }
+            myTbl.rows[i].cells[j].innerHTML=total; // 行の末尾に合計値
+        }
+    } 
+
+    var flg=0; // 入力値判定フラグ
+    window.onload = function(){
+        var myTbl = document.getElementById('editTbl');//edirTbl(表)の取り出し
+        var len=editTbl.rows[1].cells.length; // 列数
+        var Td = myTbl.getElementsByTagName('td'); //td(列)要素のリスト
+        for(var i=1; i<3; i++){
+            Td[i].setAttribute('id','td'+i); // ID名を設定
+            Td[i].onclick =function(){if(flg==1){return} // 半角数値でなければ
+                eDit(this.id); // onclickで 'eDit'を実行
+            }
+        }
+        //初回の表作成
+        calcTbl();
+    }
+    function eDit(id){  // クリックしたセルに 入力領域作成
+        cellNum=document.getElementById(id).cellIndex; // 何列目か
+        var Td = document.getElementsByTagName('td');
+        var Spn = document.createElement('span'); // span要素 生成
+            Spn.setAttribute('contenteditable','true')// contenteditable属性を付加
+	        Spn.setAttribute('id','Spn' + id); //ID名を付加
+	        Td[id].innerHTML=""; // Td[id]の中を空に
+            Td[id].appendChild(Spn); // SpnをTd[id]に追加 これで入力可能になる
+	    Spn.focus(); // カーソルを合わせる 
+	    Spn.onblur = function(){ if(Spn.innerText!=""){bLur(id);}  // フォーカスが外れたら
+		}
+	}
+
+        function bLur(id){//デバック
+            var Spn = document.getElementById('Spn' + id);
+            var str=Spn.innerText;str=Spn.textContent; // Spn の値
+            if(str.match(/[^0-9 . -]|[¥s]+/)||str==""){ flg=1; // 入力チェック
+            alert("半角数値を入れてください。"); 
+            eDit(id); return;} 
+            flag=0; Td[id].innerHTML=str; 
+            //更新された値で新たに表作成
+            calcTbl();
+            }
+    
+    </script>
+ <body>
+    <table id = "editTbl">
+        <tr>
+            <td>べき数</td><td>1</td><td>2</td><td>Sum</td>
+        </tr>
+        <tr>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+        </tr>
+        <tr>
+            <td>1</td><td>0</td><td>0</td><td>0</td>
+        </tr>
+        <tr>
+            <td>2</td><td>0</td><td>0</td><td>0</td>
+        </tr>
+        <tr>
+            <td>3</td><td>0</td><td>0</td><td>0</td>
+        </tr>
+        <tr>
+            <td>4</td><td>0</td><td>0</td><td>0</td>
+        </tr>
+        <tr>
+            <td>5</td><td>0</td><td>0</td><td>0</td>
+        </tr>
+    </table>
+ </body>
+</html>

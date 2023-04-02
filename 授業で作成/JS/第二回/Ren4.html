@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <title>練習問題3</title>
+        <meta charset ="UTF-8">
+    </head>
+        <body>
+            <table border ="1" style = "border-collapse:collapse" id = "myTbl">
+                <script type = "text/javascript">
+                var new_window = new Array(5);
+                window.onload = function(){
+                    var r = new Array(
+                    "https://webclass.cdel.uec.ac.jp",
+                    "https://www.ied.inf.uec.ac.jp/text/laboratory/index.html",
+                    "https://ja.wikipedia.org/wiki/Java",
+                    "https://ja.wikipedia.org/wiki/JavaScript",
+                    "https://ja.wikipedia.org/wiki/HyperText_Markup_Language"
+                    );
+                    var myTbl = document.getElementById("myTbl");
+                    myTbl.rows[0].cells[2].onclick = function(){
+                        createNewWindow(r[0],0);
+                    }
+                    myTbl.rows[1].cells[2].onclick = function(){
+                        createNewWindow(r[1],1);
+                    }
+                    myTbl.rows[2].cells[2].onclick = function(){
+                        createNewWindow(r[2],1);
+                    }
+                    myTbl.rows[3].cells[2].onclick = function(){
+                        createNewWindow(r[3],1);
+                    }
+                    myTbl.rows[4].cells[2].onclick = function(){
+                        createNewWindow(r[4],1);
+                    }
+                    myTbl.rows[0].cells[3].onclick = function(){
+                        closewindow(0);
+                    }
+                    myTbl.rows[1].cells[3].onclick = function(){
+                        closewindow(1);
+                    }
+                    myTbl.rows[2].cells[3].onclick = function(){
+                        closewindow(2);
+                    }
+                    myTbl.rows[3].cells[3].onclick = function(){
+                        closewindow(3);
+                    }
+                    myTbl.rows[4].cells[3].onclick = function(){
+                        closewindow(4);
+                    }
+                }
+                function createNewWindow (r,n) {
+                    new_window[n] =window.open(r,n+"ページ","width=400,height=600,location=1,scrollbars=1");
+                }
+                function closewindow(n){
+                    new_window[n].close();
+                }
+                    for( var i=0;i<5;i++){
+                        document.write("<tr>");
+                        document.write("<td>"+"ころ"+"</td>");
+                        document.write("<td>"+"ころ"+"</td>");
+                        document.write("<td>"+"<button>"+"windowを開く"+"</button>"+"</td>");
+                        document.write("<td>"+"<button>"+"windowを閉じる"+"</button>"+"</td>");
+                        document.write("</tr>");
+                    }
+                </script>
+            </table>
+        </body>
+</html>

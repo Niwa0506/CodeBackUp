@@ -1,0 +1,28 @@
+<html>
+    <meta charset="UTF-8">
+    <head>
+        <title>平行移動</title>
+        <script type="text/javascript">
+            var int;
+            function start_color(){
+                /*移動開始*/
+                int = setInterval("setposition()",100);
+            }
+            function setposition () {
+                var doc = document.getElementById("txt1");
+                /*10pixels分移動*/
+                doc.style.left = 10+parseInt(doc.style.left);
+                /*文字の位置が400を超えたら移動終了*/
+                if(parseInt(doc.style.left)>=400)end_color();
+            }
+            function end_color(){
+                /*移動終了*/
+                clearInterval(int);
+            }
+        </script>
+    </head>
+    <body>
+        <img src ="imgGreece1.jpg" style ="position:absolute;left:0px;top:50px" id ="txt1"><br>
+        <p><button type="button" style ="position:absolute;left:0px;top:0px" onclick="start_color()">始まり</button></p>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<html>
+   <meta charset="UTF-8">
+   <head>
+      <script type="text/javascript">
+         function pmove () {//チェックされた番号に応じて文字の色を変換
+            for (i=0; i<document.bkmkmenu.bkmks.length; i++) {//全てのインデックスに対して
+               if (document.bkmkmenu.elements[i].checked) {//チェックされてるなら
+                  document.getElementById("txt1").style.color = document.bkmkmenu.elements[i].value;
+                  break;
+               }
+            }
+         }
+      </script>
+   </head>
+   <body>
+      <div id = "txt1">■■■■■</div><br>
+      <form name = "bkmkmenu">
+         <input type = "radio"  name = "bkmks" value = "red"   >赤<br>
+         <input type = "radio"  name = "bkmks" value = "blue"  >青<br>
+         <input type = "radio"  name = "bkmks" value = "yellow">黄色<br>
+         <input type = "radio"  name = "bkmks" value = "black" >黒<br>
+         <input type = "radio"  name = "bkmks" value = "green" >緑<br>
+         <input type = "button" value = "文字色変更" onclick = "pmove ()">
+      </form>
+   </body>
+</html>

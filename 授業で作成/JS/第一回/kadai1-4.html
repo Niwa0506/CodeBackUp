@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <meta charset = "UTF-8">
+ <head>
+  <title>Event Handler</title>
+  <script type="text/javascript">
+   var flag = 0;//フラグを定義
+   window.onload= function startup(){//画像の初期値を640×480に
+    document.images["myImg1"].width = 640;
+    document.images["myImg1"].height = 480;
+   }
+    function check(){
+        if(flag == 0){//画像が大きいなら半分にしてフラグを立てる
+        document.images["myImg1"].width =document.images["myImg1"].width/2;
+        document.images["myImg1"].height =document.images["myImg1"].height /2;
+        flag = 1;
+        }else{//画像が小さいなら倍にしてフラグを下ろす
+        document.images["myImg1"].width =document.images["myImg1"].width*2;
+        document.images["myImg1"].height =document.images["myImg1"].height*2;
+        flag = 0;
+        }
+    }
+ </script>
+ </head>
+ <body>
+ <img src="img1.png" name="myImg1" onclick="check()">
+ </body>
+</html>
