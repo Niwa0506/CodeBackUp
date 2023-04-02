@@ -1,0 +1,58 @@
+// parameters
+float A = 0.001;
+float B = 0.01;
+int W = 5;//filter width
+int hw =int(W/2);//half size of filter width
+int a=0;
+// resource
+PImage src;
+color[] src_bilateral;
+int w, h;
+
+void setup() {
+  size(2000,500);
+  background(255);
+  src = loadImage("penguin.jpg");
+  src.resize(400,480);
+  w = src.width;
+  h = src.height;
+  src_bilateral = new color[w*h];
+  for (int i=0; i<h*w; i++) { src_bilateral[i]=color(100); }
+}
+
+void draw() {
+  for (int y=hw;y<h-hw;y++) {
+    for (int x=hw;x<w-hw;x++) {
+      color c = bilateral(x,y);
+      src.pixels[y*w+x] = c;
+    }
+  }
+  src.updatePixels();
+  if(a<5)
+  image(src,400*a++,0);
+  else
+    a = 0;
+}
+
+color bilateral(int i, int j) {
+  float sum_r = .0, sum_g = .0,sum_b = .0;
+  float W_3_r = .0,W_3_g = .0,W_3_b = .0;
+  src.loadPixels();
+  for (int n=-hw; n<=hw; n++) {
+    for (int m=-hw; m<=hw; m++) {
+      color c_ij = src.pixels[i+j*w];
+      color c_nm = src.pixels[(i+n)+(j+m)*w];
+      sum_r += gaussian(n*n+m*m, pow(red(c_ij)-red(c_nm), 2), A,B)*red(c_nm);
+      W_3_r += gaussian(n*n+m*m, pow(red(c_ij)-red(c_nm), 2), A,B);
+      sum_g += gaussian(n*n+m*m, pow(green(c_ij)-green(c_nm), 2), A,B)*green(c_nm);
+      W_3_g += gaussian(n*n+m*m, pow(green(c_ij)-green(c_nm), 2), A,B);
+      sum_b += gaussian(n*n+m*m, pow(blue(c_ij)-blue(c_nm), 2), A,B)*blue(c_nm);
+      W_3_b += gaussian(n*n+m*m, pow(blue(c_ij)-blue(c_nm), 2), A,B);
+    }
+  }
+  return color(sum_r/W_3_r, sum_g/W_3_g, sum_b/W_3_b);
+}
+
+float gaussian(float x, float y, float A,float B) {
+  return exp((-A*x-B*y));
+}
