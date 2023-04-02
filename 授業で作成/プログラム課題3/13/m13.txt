@@ -1,0 +1,8 @@
+R
+[b]10456,David Beckham,77
+.
+[r]12017,Osamu Dazai,50
+[b]10789,Cristiano Ronaldo,7 
+.
+.
+. 
