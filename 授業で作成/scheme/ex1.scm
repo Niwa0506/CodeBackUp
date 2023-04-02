@@ -1,0 +1,37 @@
+(define TREE '(1 (2 (3 4)) 6 (7 8 9)) )
+;1
+(define tree-member?
+  (lambda(tree val)
+    (cond ((null? tree) #f)         ; tree が空の時 (= 見つからなかった)
+          ((pair? tree)
+                        (or (tree-member? (car tree) val) (tree-member? (cdr tree) val)))
+                         ; tree が部分木の時 (まだ値の比較はできない)
+          (else         (equal? tree val))  ; tree 葉の時 (ここで val と比較する)
+    )))
+;2
+(define map-tree
+   (lambda (f l)
+     (cond ((null? l) '())         ; tree が空の時 (= 見つからなかった)
+           ((pair? l)   (cons
+                        (map-tree f (car l))
+                        (map-tree f (cdr l))
+                        )
+                        )
+                         ; tree が部分木の時 (まだ値の比較はできない)
+          (else         (f l); tree 葉の時 (ここで val と比較する)
+                        )
+    )))
+;3 & 4
+(define each-tree
+   (lambda (f c e l)
+     (cond ((null? l) e)         ; tree が空の時 (= 見つからなかった)
+           ((pair? l)   (c
+                        (each-tree f c e (car l))
+                        (each-tree f c e (cdr l))
+                        )
+                        )
+                         ; tree が部分木の時 (まだ値の比較はできない)
+          (else         (f l); tree 葉の時 (ここで val と比較する)
+                        )
+    )))
+;4's answer:(each-tree (lambda (x) (/ x x)) + 0 TREE)
