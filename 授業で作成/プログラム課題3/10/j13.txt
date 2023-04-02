@@ -1,0 +1,5 @@
+10123,Ichiro Suzuki,51
+10234,Makoto Hasebe,17
+10456,Shohei Ohtani,17
+10739,Cristiano Ronaldo,7
+17.
